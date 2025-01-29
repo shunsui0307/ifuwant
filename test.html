@@ -1,0 +1,27 @@
+<HTML>
+<BODY>
+
+<iframe id="gform" src="https://docs.google.com/forms/d/e/1FAIpQLScYp2SL0SaHN2dJIcRCBOE6FM-2OrS-yuRjcn6GeYrJKp18nA/viewform?embedded=true" width="640" height="382" frameborder="0" marginheight="0" marginwidth="0">読み込んでいます…</iframe>
+
+<script>
+    var load = 0;
+
+    // URLのクエリパラメータを取得する関数
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param) ? decodeURIComponent(urlParams.get(param)) : null;
+    }
+
+    // "redirect" パラメータから遷移先URLを取得
+    var redirectUrl = getQueryParam("redirect");
+
+    document.getElementById('gform').onload = function() {
+        load++;
+        if (load > 1 && redirectUrl) {
+            window.location.href = redirectUrl; // 指定されたURLへ遷移
+        }
+    };
+</script>
+
+</BODY>
+</HTML>
