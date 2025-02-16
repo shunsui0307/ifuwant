@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../common.css">
+    <title>If U Wantへようこそ</title>
+</head>
+    <body style="font-family:sans-serif;" monica-id="ofpnmcalabcbjgholdjcjblkibolbppb" monica-version="7.8.0">
+        <img src="./settings_files/header.jpeg" class="header-image">
+        <center>
+        <div>
+        <form name="start" method="POST" action="https://3mj0ilijc3.execute-api.ap-northeast-1.amazonaws.com/prod/settings" enctype="application/x-www-form-urlencoded">
+ご利用時間を選択してください。<br>
+<div class="radio-group">
+    <input type="radio" id="15" name="usage" value="15" class="radio-input" checked>
+    <label for="15" class="radio-label">15分<br>
+        <span class="fee">(利用料：300円)</span>
+    </label>
+
+    <input type="radio" id="30" name="usage" value="30" class="radio-input">
+    <label for="30" class="radio-label">30分<br>
+        <span class="fee">(利用料：600円)</span>
+    </label>
+</div>
+	<!--
+        <input type="checkbox" id="agree" disabled="">
+        <a href="https://pes1-static.s3.ap-northeast-1.amazonaws.com/html/agreement.html" target="_blank">利用規約</a>と<a href="https://pes1-static.s3.ap-northeast-1.amazonaws.com/html/privacy.html" target="_blank">プライバシーポリシー</a>に同意する
+	--!>
+        </form></div>
+        <div id="container" class="container" style="display: block;">
+                <!-- TODO キャンペーンでない場合、15分or30分で料金切り替えをする必要あり  -->
+        <iframe id="gform" src="https://www.jotform.com/form/250377727415461" width="
+        100%" height="100%" marginheight="0" marginwidth="0">読み込んでいます…</iframe>
+                </div>
+        <input type="hidden" name="sub" value="7744aa88-9041-7077-e2ec-c288c1597a6c">
+        <input type="hidden" name="device_id" value="3C8427A7AD7A">
+        <input type="submit" value="利用開始" id="submit-btn" style="width:50%; height:48px;display:none;">
+        
+<!--
+        </center>
+<img src='https://pes1-static.s3.ap-northeast-1.amazonaws.com/footer.jpeg' style='width:100%;'/>
+<center>
+<a href = 'https://pes1-static.s3.ap-northeast-1.amazonaws.com/html/service.html'>サービスについて</a>
+　<a href = 'https://pes1-static.s3.ap-northeast-1.amazonaws.com/html/privacy.html'>プライバシーポリシー　</a>
+　<a href = 'https://pes1-static.s3.ap-northeast-1.amazonaws.com/html/agreement.html'>ご利用規約</a>
+　<a href = 'https://pes1-static.s3.ap-northeast-1.amazonaws.com/html/notation.html'>特定商取引法に基づく表記</a>
+</center>
+-->
+
+<script type="text/javascript">
+        var agreeCheckbox = document.getElementById("agree");
+        var container = document.getElementById("container");
+
+        agreeCheckbox.addEventListener("click", () => {
+            if (agreeCheckbox.checked === true) {
+                container.style.display = 'block'; 
+                agreeCheckbox.disabled = true;
+            }
+        });
+
+    //GoogleForm用
+    var load = 0;
+    document.getElementById('gform').onload = function() {
+        load++;
+        if (load > 1) {
+            document.start.submit();
+        }
+    };
+</script>
+</center>
+</body></html>
