@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!-- saved from url=(0097)https://3mj0ilijc3.execute-api.ap-northeast-1.amazonaws.com/prod/extension?device_id=3C8427A7AD7A -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../common.css">
+    <title>利用中</title>
+<style>
+body {
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+</style>
+<style id="monica-reading-highlight-style">
+        .monica-reading-highlight {
+          animation: fadeInOut 1.5s ease-in-out;
+        }
+
+        @keyframes fadeInOut {
+          0%, 100% { background-color: transparent; }
+          30%, 70% { background-color: rgba(2, 118, 255, 0.20); }
+        }
+      </style></head>
+    <body style="font-family:sans-serif;" monica-id="ofpnmcalabcbjgholdjcjblkibolbppb" monica-version="7.8.0">
+        <img style="width:100%;" src="./smb04_files/header.jpeg">
+        <center>
+        <div>
+        利用中です。<br>
+        終了定時間：<br><br>
+        延長をご希望の場合は延長時間をお選びください。
+        <form method="POST" action="https://3mj0ilijc3.execute-api.ap-northeast-1.amazonaws.com/prod/extension" enctype="application/x-www-form-urlencoded">
+        <input type="radio" id="15" name="usage" value="15" checked=""><label for="15">15分 
+                            <span style="color:#BBBBBB;">(利用料：なし)</span></label><br>                
+                    <input type="radio" id="30" name="usage" value="30"><label for="30">30分
+                            <span style="color:#BBBBBB;">(利用料：なし)</span></label><br>                
+                    <br>
+        <input type="hidden" name="sub" value="">
+        <input type="hidden" name="device_id" value="">
+        <input type="submit" value="延長する" style="width:50%; height:48px;font-size:100%;"><br>
+        </form>
+        いますぐ終了をご希望の場合は下記ボタンをタップしてください。
+        <form method="POST" action="https://3mj0ilijc3.execute-api.ap-northeast-1.amazonaws.com/prod/quit" enctype="application/x-www-form-urlencoded">
+        <input type="hidden" name="sub" value="">
+        <input type="hidden" name="device_id" value="">
+        <input type="submit" value="終了する" style="width:50%; height:48px;font-size:100%;"><br>
+        </form>
+        </div>
+        </center>
+    <footer>
+        <a href="https://pes1-static.s3.ap-northeast-1.amazonaws.com/html/service.html">サービスについて</a>
+        <a href="https://pes1-static.s3.ap-northeast-1.amazonaws.com/html/privacy.html">プライバシーポリシー</a>
+        <a href="https://pes1-static.s3.ap-northeast-1.amazonaws.com/html/agreement.html">ご利用規約</a>
+        <a href="https://pes1-static.s3.ap-northeast-1.amazonaws.com/html/notation.html">特定商取引法に基づく表記</a>
+    </footer>
+</body></html>
