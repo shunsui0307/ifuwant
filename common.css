@@ -55,7 +55,7 @@ div {
     padding-left: 10%;  /* 左パディングを10%に設定 */
     padding-right: 10%;  /* 右パディングを10%に設定 */
     margin-top: 20px; /* ヘッダー画像と重ならないようにスペースを確保 */
-    font-size: 16px;  /* テキストのサイズを調整 */
+    font-size: 14px;  /* テキストのサイズを調整 */
     line-height: 1.5; /* テキストの行間を調整して、読みやすく */
     box-sizing: border-box; /* パディングを含むサイズに調整 */
 }
@@ -93,6 +93,7 @@ footer a:hover {
 
 .radio-group {
     display: flex;
+    justify-content: center; /* 子要素を中央に配置 */
     gap: 10px; /* ボタン間の間隔を調整 */
 }
 
@@ -144,4 +145,82 @@ iframe#gform {
     display: block; /* ブロック要素にすることで中央に配置 */
     margin: 0 auto; /* 自動で中央に配置 */
     max-width: 100%; /* 画面幅を超えないように制限 */
+}
+
+/* チェックボックスを非表示にする */
+.checkbox-label input[type="checkbox"] {
+    display: none;
+}
+
+/* ラベル内のスパンをボタン風にスタイリング */
+.checkbox-label span {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 1px solid #007BFF; /* 枠線の色を青に */
+    border-radius: 5px;
+    background-color: #007BFF; /* 背景色を青に */
+    color: #fff; /* 文字色を白に */
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s, border-color 0.3s;
+    width: 70%; /* ボタンの横幅を画面の70%に設定 */
+    max-width: 300px; /* 最大幅を300pxに設定 */
+    margin: 10px auto; /* 上下に10pxのマージン、左右は自動で中央揃え */
+}
+
+/* チェックが入った状態のスタイル */
+.checkbox-label input[type="checkbox"]:checked + span {
+    background-color: #6c757d; /* 背景色をグレーに */
+    border-color: #6c757d; /* 枠線の色をグレーに */
+    color: #fff; /* 文字色を白に */
+}
+
+/* モーダルの背景 */
+.modal-background {
+    display: none; /* 初期状態では非表示 */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5); /* 半透明の黒背景 */
+}
+
+/* モーダルのコンテンツ */
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 10px;
+    position: relative;
+}
+
+/* 閉じるボタン */
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* モーダル内のiframe */
+#modal-iframe {
+    width: 100%;
+    height: 400px;
+    border: none;
 }
