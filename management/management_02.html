@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- スマホ対応 -->
+    <link rel="stylesheet" href="common.css">
+    <title>テナント/ゲスト管理画面</title>
+</head>
+<body>
+    <div class="header">
+        <h1>テナント/ゲスト管理画面</h1>
+    </div>
+    <div class="container">
+        <h2>ゲストアカウント登録</h2>
+        <p>登録したいゲストアカウントのメールアドレスを入力してください。<br>
+        対象のメールアドレスに仮パスワードを送信します。<br>
+        ※カンマ区切りで入力してください。</p>
+        <form method='post' action='https://emf0vjlawj.execute-api.ap-northeast-1.amazonaws.com/prod/guest'>
+            <textarea name='targetlist' placeholder="例：hogehoge1@example.com,hogehoge2@example.com"></textarea><br>
+            <button type='submit' class='button'>メール送信</button>
+        </form>
+    </div>
+    <footer>
+        <a href="https://pes1-static.s3.ap-northeast-1.amazonaws.com/html/service.html">サービスについて</a>
+        <a href="https://pes1-static.s3.ap-northeast-1.amazonaws.com/html/privacy.html">プライバシーポリシー</a>
+        <a href="https://pes1-static.s3.ap-northeast-1.amazonaws.com/html/agreement.html">ご利用規約</a>
+        <a href="https://pes1-static.s3.ap-northeast-1.amazonaws.com/html/notation.html">特定商取引法に基づく表記</a>
+	<br>
+	<br>
+	<div><img style="width:150px" src="logo.svg"></div>
+    </footer>
+</body>
+</html>
