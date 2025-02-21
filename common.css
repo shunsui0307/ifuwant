@@ -52,20 +52,20 @@ input[type="button"]:hover {
 div {
     text-align: center;  /* テキストを中央に揃える */
     width: 100%;  /* 幅を100%に設定 */
-    padding-left: 10%;  /* 左パディングを10%に設定 */
-    padding-right: 10%;  /* 右パディングを10%に設定 */
+    padding-left: 5%;  /* 左パディングを5%に調整 */
+    padding-right: 5%; /* 右パディングを5%に調整 */
     margin-top: 20px; /* ヘッダー画像と重ならないようにスペースを確保 */
     font-size: 14px;  /* テキストのサイズを調整 */
     line-height: 1.5; /* テキストの行間を調整して、読みやすく */
     box-sizing: border-box; /* パディングを含むサイズに調整 */
 }
 
+/* 画像のスタイル */
 div img {
     display: block; /* インライン要素からブロック要素に変更 */
     width: 70%; /* 横幅70%に縮小 */
     margin: 20px auto; /* 自動中央揃え、上下にスペースを追加 */
 }
-
 
 /* フッターのスタイル */
 footer {
@@ -179,28 +179,48 @@ iframe#gform {
 .modal-background {
     display: none; /* 初期状態では非表示 */
     position: fixed;
-    z-index: 1000;
+    z-index: 999;  /* 背景がモーダルコンテンツより後ろに来るように */
     left: 0;
     top: 0;
     width: 100%;
-    height: 100%;
-    overflow: auto;
+    height: 100%;  /* 高さを100%に設定 */
     background-color: rgba(0, 0, 0, 0.5); /* 半透明の黒背景 */
+}
+
+/* モーダルが表示されるとき */
+.modal-background.show {
+    display: block;  /* モーダル背景を表示 */
+}
+
+/* モーダルの親要素 */
+.modal-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;  /* 固定位置 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;  /* ビューポート全体を使用 */
+    padding: 0;
+    z-index: 1000;  /* 背景より前に配置 */
+    overflow: hidden;  /* ビューポート内でスクロールさせない */
 }
 
 /* モーダルのコンテンツ */
 .modal-content {
     background-color: #fff;
-    margin: 10% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;
+    width: 100%;
     max-width: 600px;
     border-radius: 10px;
     position: relative;
+    z-index: 1001;  /* モーダルコンテンツが背景より前に表示されるように */
+    box-sizing: border-box;
 }
 
-/* 閉じるボタン */
+/* モーダルの閉じるボタン */
 .modal-close {
     position: absolute;
     top: 10px;
