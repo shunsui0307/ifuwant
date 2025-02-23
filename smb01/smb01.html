@@ -67,6 +67,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+    // 親ウィンドウ側でモーダルを閉じる関数
+    function closeModal() {
+        var modalBackground = document.getElementById('modal-background');
+        modalBackground.style.display = 'none';
+    }
 </script>
 
 </body>
