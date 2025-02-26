@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- スマホ対応 -->
+
+    <title>メール設定</title>
+    <style>
+        /* 全体設定 */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #717A7F, #5F6264);
+            background-attachment: fixed; /* 背景の繰り返しを防ぐ */
+            min-height: 70vh; /* 最小高さを画面全体に */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding-top: 60px; /* ヘッダーの高さ分の余白 */
+        }
+
+        /* ヘッダー */
+        .header {
+            background-color: #02004B;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            padding: 5px 20px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            color: #FFF;
+        }
+
+        .header img {
+            height: 30px;
+            width: auto;
+            margin-right: 10px;
+        }
+
+        .header h1 {
+            font-size: 18px;
+            font-weight: bold;
+            color: #FFF;
+        }
+
+        .header h1 a {
+            color: inherit; /* 親要素の色を継承 */
+            text-decoration: none; /* 下線を削除 */
+        }
+
+        /* メインコンテンツ */
+        .container {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 900px;
+            min-width: 700px;
+            display: flex;
+            flex-direction: column; /* 変更: 上下に並べる */
+            align-items: center; /* 中央揃え */
+            margin: 50px auto;
+            gap: 20px;
+        }
+
+        h2 {
+            margin-bottom: 15px;
+            font-size: 20px;
+            width: 100%;
+            text-align: center; /* タイトルを中央に配置 */
+        }
+
+        p {
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        /* ボタン */
+        .button {
+            display: block;
+            padding: 12px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 350px;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            margin: 10px 0 15px; /* ボタンの間隔を確保 */
+            transition: background-color 0.3s ease;
+        }
+
+        .button:last-child {
+            margin-bottom: 0;
+        }
+
+        .button:hover {
+            background-color: #0056b3; /* お好みの色に変更可能 */
+        }
+
+        /* フッターのスタイル */
+        footer {
+            position: relative; /* フローティングではなく、ページの下に表示 */
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            padding: 20px 0;
+            background-color: #f8f9fa;
+            margin-top: 20px; /* コンテンツと少しスペースを取る */
+        }
+
+        /* フッター内のリンクを横並びにし、中央揃えにする */
+        footer a {
+            display: inline-block;
+            margin: 5px 15px;  /* 左右に余白を加えて間隔を調整 */
+            font-size: 14px;
+            color: #007BFF; /* お好みの色に変更可能 */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        /* ホバー時のスタイル */
+        footer a:hover {
+            color: #0056b3; /* お好みの色に変更可能 */
+            text-decoration: underline;
+        }
+
+/* テキストエリア */
+textarea {
+    width: 100%; /* 親要素に合わせて幅を広げる */
+    max-width: 800px; /* 最大幅を広く設定（必要に応じて調整） */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+    display: block;
+    margin: 0 auto 20px;
+    box-sizing: border-box; /* パディングを含めた幅の計算 */
+}
+
+        /* コンテナ内のレイアウトを変更 */
+        .content-wrapper {
+            display: flex;
+            justify-content: space-between; /* 左右に並べる */
+            gap: 20px;
+            width: 100%;
+        }
+
+        /* プレビュー用のスタイル */
+        .preview-container {
+            width: 100%; /* プレビューの幅を設定 */
+            text-align: left;
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            background-color: #f8f9fa;
+            font-size: 14px; /* 文字サイズをフォームと同じに設定 */
+        }
+
+        /* プレビューのテキスト */
+        .preview-container div {
+            padding: 10px;
+            min-height: 60px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <strong>テナント/ゲスト管理画面</strong>　株式会社NSFエンゲージメント（事業者コード：NSF-E）
+    </div>
+    <div class="container">
+        <!-- タイトル -->
+        <h2>ワンデイパスワードメール設定</h2>
+
+        <!-- メール設定とプレビューを左右に並べるためのラッパー -->
+        <div class="content-wrapper">
+            <!-- 左側: メール設定 -->
+            <div>
+                <p>■メール件名：</p>
+                <textarea id="subject" name="subject" style="height: 80px; width: 400px;">【NSFエンゲージメント株式会社】コンセント利用ゲストユーザーID/パスワードのお知らせ</textarea><br>
+                <p>■メール本文：</p>
+                <textarea id="message" name="message" style="height: 240px" width: 400px;">来館予約ありがとうございます。株式会社NSFエンゲージメントです。¥n¥n可変テキスト可変テキスト可変テキスト</textarea><br>
+            </div>
+
+            <!-- 右側: プレビュー -->
+            <div class="preview-container">
+                <h3>プレビュー</h3><br>
+                <p><strong>件名:</strong></p>
+                <div id="subject-preview">【NSFエンゲージメント株式会社】コンセント利用ゲストユーザーID/パスワードのお知らせ</div><br>
+                <p><strong>本文:</strong></p>
+                <div id="message-preview">来館予約ありがとうございます。株式会社NSFエンゲージメントです。¥n¥n可変テキスト可変テキスト可変テキスト</div>
+                <p>--------------------------------</p>
+                <p>ゲストID/ワンデイパスワード</p>
+                <p>日付：******</p>
+                <p>ID:guest@fasttrek.jp</p>
+                <p>パスワード：******</p>
+                <p>※ワンデイパスワードは対象日のみ有効です。</p>
+                <p>※コンセント・シェアサービス「IfU Want」による提供となります。</p>
+                <p>ご利用お待ちしております。</p>
+                <p>--------------------------------</p>
+            </div>
+        </div>
+
+        <!-- 更新ボタン -->
+        <button type="submit" class="button">更新する</button>
+    </div>
+
+    <footer>
+        <a href="https://pes1-static.s3.ap-northeast-1.amazonaws.com/html/service.html">サービスについて</a>
+        <a href="https://pes1-static.s3.ap-northeast-1.amazonaws.com/html/privacy.html">プライバシーポリシー</a>
+        <a href="https://pes1-static.s3.ap-northeast-1.amazonaws.com/html/agreement.html">ご利用規約</a>
+        <a href="https://pes1-static.s3.ap-northeast-1.amazonaws.com/html/notation.html">特定商取引法に基づく表記</a>
+        <br>
+        <br>
+        <div><img style="width:150px" src="logo.svg"></div>
+    </footer>
+
+    <script>
+        // subject と message のテキストエリアに入力された内容をプレビューに反映
+        document.getElementById('subject').addEventListener('input', function() {
+            document.getElementById('subject-preview').textContent = this.value;
+        });
+
+        document.getElementById('message').addEventListener('input', function() {
+            document.getElementById('message-preview').textContent = this.value;
+        });
+    </script>
+</body>
+</html>
