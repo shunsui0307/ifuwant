@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<!-- saved from url=(0072)https://pes1-static.s3.ap-northeast-1.amazonaws.com/html/servicemap.html -->
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="manifest" href="https://pes1-static.s3.ap-northeast-1.amazonaws.com/html/manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../common.css">
+    <title>If U Wantマップ</title>    
+<style id="monica-reading-highlight-style">
+        .monica-reading-highlight {
+          animation: fadeInOut 1.5s ease-in-out;
+        }
+
+        @keyframes fadeInOut {
+          0%, 100% { background-color: transparent; }
+          30%, 70% { background-color: rgba(2, 118, 255, 0.20); }
+        }
+
+    iframe {
+      display: block;
+      width: 100vw;
+      height: 480px;
+      border: none;
+    }
+      </style></head>
+<body style="font-family:sans-serif;" monica-id="ofpnmcalabcbjgholdjcjblkibolbppb" monica-version="7.9.0">
+<img src="./servicemap_files/about_header.jpeg" width="100%">
+<div style="text-align: center; font-size: 14px; line-height: 2;">
+<strong>↓マップから近隣の充電スポットを検索できます↓</strong>
+</div><br>
+<center><iframe src="https://www.google.com/maps/d/embed?mid=1XPc_1Q74SOX5Zu9qryyuMdFShvFwPz8&amp;ehbc=2E312F&amp;noprof=1"></iframe></center>
+    <footer>
+        <a href="https://pes1-static.s3.ap-northeast-1.amazonaws.com/html/service.html">サービスについて</a>
+        <a href="https://pes1-static.s3.ap-northeast-1.amazonaws.com/html/privacy.html">プライバシーポリシー</a>
+        <a href="https://pes1-static.s3.ap-northeast-1.amazonaws.com/html/agreement.html">ご利用規約</a>
+        <a href="https://pes1-static.s3.ap-northeast-1.amazonaws.com/html/notation.html">特定商取引法に基づく表記</a>
+	<div><img style="width:30%;" src="./servicemap_files/logo.svg"></div>
+    </footer>
+
+<script>
+console.log(navigator.platform.toLowerCase());
+console.log(navigator.userAgent.toLowerCase());
+
+window.addEventListener('load', () => {
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('https://pes1-static.s3.ap-northeast-1.amazonaws.com/html/service-worker.js').then(registration => console.log('registered', registration)).catch(error => console.log('error', error));
+        }
+      });
+
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (event) => {
+  // インストールプロンプトが表示されないようにする
+  event.preventDefault();
+  // 後で使用するためにイベントオブジェクトを保存する
+  deferredPrompt = event;
+  // カスタムインストールボタンを表示する
+  showInstallButton();
+});
+
+function showInstallButton() {
+  const installButton = document.getElementById('installbtn');
+  installButton.style.display = 'block';
+}
+
+function isIOS() {
+  const platform = navigator.platform.toLowerCase();
+  const userAgent = navigator.userAgent.toLowerCase();
+
+  if (platform.indexOf('iphone') !== -1 || platform.indexOf('ipad') !== -1 || platform.indexOf('ipod') !== -1) {
+    return true;
+  } else if (userAgent.indexOf('iphone') !== -1 || userAgent.indexOf('ipad') !== -1 || userAgent.indexOf('ipod') !== -1) {
+    return true;
+  }
+  return false;
+}
+
+console.log(isIOS());
+
+if (isIOS){ 
+const installButton = document.getElementById('installbtn');
+installButton.style.display = 'none';
+}
+
+
+const installButton = document.getElementById('installbtn');
+installButton.addEventListener('click', () => {
+  deferredPrompt.prompt();
+  deferredPrompt.userChoice.then((choiceResult) => {
+    if (choiceResult.outcome === 'accepted') {
+      console.log('ユーザーはインストールを受け入れました');
+    } else {
+      console.log('ユーザーはインストールを拒否しました');
+    }
+    // イベントオブジェクトをnullにする
+    deferredPrompt = null;
+  });
+});
+
+</script>
+</body></html>
