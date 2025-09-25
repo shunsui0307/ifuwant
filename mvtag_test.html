@@ -67,10 +67,12 @@
             if (window.mvtag) {
                 window.mvtag("quick_call", {
                     "phone_number": phoneNumber,
+                    "is_sandbox": true,
                     "delay": 15
                 });
                 console.log("クイックコール: mvtag関数が発火しました。", {
                     phoneNumber: phoneNumber,
+                    is_sandbox: true,
                     delay: 15
                 });
             } else {
