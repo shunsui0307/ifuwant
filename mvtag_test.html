@@ -12,88 +12,19 @@
 
 <script>!function(){var e=document.createElement("script");e.src="https://api.micovoice.com/api/v1/quick_calls/tag",e.async=!0,e.type="text/javascript",document.head.appendChild(e),window.__MV_DATALAYER__=window.__MV_DATALAYER__||[],window.mvtag=function(e,t){__MV_DATALAYER__.push({eventType:e,eventData:t,token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYW1wYWlnblVpZCI6ImI3YjA5ZWRkLWM4MjAtNGU3Ny1hMTJlLTI0MzQwZDMyZmExZSIsImlhdCI6MTc1ODY5MzQzNH0.YVJo46gcMiU7PojZxP60hmYAtovuLm7-jMfCfr8YVz8"})}}();</script>
 <script>
+// (1) ここで token 変数を定義します（テスト用）。
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYW1wYWlnblVpZCI6ImI3YjA5ZWRkLWM4MjAtNGU3Ny1hMTJlLTI0MzQwZDMyZmExZSIsImlhdCI6MTc1ODY5MzQzNH0.YVJo46gcMiU7PojZxP60hmYAtovuLm7-jMfCfr8YVz8"; // 例: 東京のトークン
+
 // You can delete this line if you don't want to make the quick call automatically, and instead call it wherever it's needed in your application.
+
+// (2) mvtag呼び出しの直前で token の値を出力します。
+console.log("使用するトークン:", token); 
+
 mvtag("quick_call", {
-"is_sandbox": false,
-"phone_number": "09044292611"
+    "is_sandbox": false,
+    "phone_number": "09044292611"
 });
 </script>
-
-
-<!--
-<script>
-!function() {
-    // ----------------------------------------------------
-    // ステップ1: URLパラメータからブランチ名と電話番号を取得
-    // ----------------------------------------------------
-    const urlParams = new URLSearchParams(window.location.search);
-    const branch = urlParams.get('branch');
-    const phoneNumber = urlParams.get('utm_customid');
-
-    // ----------------------------------------------------
-    // ステップ2: ブランチごとのトークンを定義
-    // ----------------------------------------------------
-    const branchTokens = {
-        'nagoya': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYW1wYWlnblVpZCI6ImIzZTFjNTgyLTZmYjAtNDgzNy1hMTE2LTRlMjhkODgxZWY3MiIsImlhdCI6MTc1ODY5MzI1Nn0.7ocR406IeYOVpT9HeWILRGxfNcXVXaE4AdV8qQA8ptQ",
-        'utsunomiya': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYW1wYWlnblVpZCI6ImViOTBjNmQ2LTJiNDMtNDE5Ni05Y2EyLTE1ZDgwNDVkNmYzMyIsImlhdCI6MTc1ODY5MzI5MX0.YLrHMZBWx_z_zllZWVk6SJ9XYwf5zR-3hTplO6AjXmA",
-        'osaka': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYW1wYWlnblVpZCI6ImM0NGMyODg4LWJmZDUtNGUzZC1iM2MwLTg1MWIyNmM5YThmMiIsImlhdCI6MTc1ODY5MzMxOX0.-alHbDu3sA-g_wVYaAsL0DnhG5siRbVAg7AW_VPmcoY",
-        'hachioji': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYW1wYWlnblVpZCI6ImE3ZDQxY2Q2LWY3MzgtNGY4OC1hZWVkLTA4M2VjNDkzZWExYyIsImlhdCI6MTc1ODY5MzM0NH0.G2TDCXydcTpPI0GZxX49NPWgU861bpjc-Bzq019peaQ",
-        'omiya': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYW1wYWlnblVpZCI6IjAxYzM5OThmLWYzZmMtNGFhNC1iNWNkLTQwMWNjNDcyMTc5MiIsImlhdCI6MTc1ODY5MzM2OX0.yHob9kbbrquabrcGg9W4I4PM6_KDHoF_Siy3TZp3nYo",
-        'chiba': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYW1wYWlnblVpZCI6IjA1NjU2OTU3LWFjOTEtNDQ0Ny1hYWIwLTE1Yzk2MzgxZmQ3ZiIsImlhdCI6MTc1ODY5MzQwMn0.3MGeNI_zpr49XaCHFKQqFsH4j06G3QyuCY-Zymn4fC4",
-        'tokyo': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYW1wYWlnblVpZCI6ImI3YjA5ZWRkLWM4MjAtNGU3Ny1hMTJlLTI0MzQwZDMyZmExZSIsImlhdCI6MTc1ODY5MzQzNH0.YVJo46gcMiU7PojZxP60hmYAtovuLm7-jMfCfr8YVz8"
-    };
-
-    // ----------------------------------------------------
-    // ステップ3: ブランチに応じたクイックコールタグを動的に読み込み
-    // ----------------------------------------------------
-    const token = branchTokens[branch];
-    if (token) {
-        // タグ本体を動的に生成・挿入
-        const script = document.createElement("script");
-        script.src = "https://api.micovoice.com/api/v1/quick_calls/tag";
-        script.async = true;
-        script.type = "text/javascript";
-        document.head.appendChild(script);
-
-        // mvtag関数の定義
-        window.__MV_DATALAYER__ = window.__MV_DATALAYER__ || [];
-        window.mvtag = function(e, t) {
-            __MV_DATALAYER__.push({
-                eventType: e,
-                eventData: t,
-                token: token
-            });
-        };
-    } else {
-        // 対応するブランチがない場合、コンソールに警告を表示
-        console.warn("クイックコール: 対応するブランチパラメータが見つかりませんでした。");
-    }
-
-    // ----------------------------------------------------
-    // ステップ4: 電話番号パラメータが存在する場合、mvtagを発火
-    // ----------------------------------------------------
-    if (phoneNumber) {
-        // mvtag関数の準備ができた後に実行するための遅延
-        setTimeout(() => {
-            if (window.mvtag) {
-                window.mvtag("quick_call", {
-                    "phone_number": phoneNumber,
-                    "is_sandbox": true,
-                    "delay": 15
-                });
-                console.log("クイックコール: mvtag関数が発火しました。", {
-                    phoneNumber: phoneNumber,
-                    is_sandbox: true,
-                    delay: 15
-                });
-            } else {
-                console.error("クイックコール: mvtag関数が定義されていません。ブランチパラメータが正しいか確認してください。");
-            }
-        }, 1000); // 1秒の遅延
-    }
-}();
-</script>
---!>
 
 </body>
 </html>
