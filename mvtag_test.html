@@ -9,19 +9,78 @@
     <h1>クイックコールHTMLタグ テスト</h1>
 
 
-<script>!function(){var e=document.createElement("script");e.src="https://api.micovoice.com/api/v1/quick_calls/tag",e.async=!0,e.type="text/javascript",document.head.appendChild(e),window.__MV_DATALAYER__=window.__MV_DATALAYER__||[],window.mvtag=function(e,t){__MV_DATALAYER__.push({eventType:e,eventData:t,token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYW1wYWlnblVpZCI6ImI3YjA5ZWRkLWM4MjAtNGU3Ny1hMTJlLTI0MzQwZDMyZmExZSIsImlhdCI6MTc1ODY5MzQzNH0.YVJo46gcMiU7PojZxP60hmYAtovuLm7-jMfCfr8YVz8"})}}();</script>
 <script>
-mvtag("quick_call", {
-    "is_sandbox": false,
-    "phone_number": "09044292611",
-    "custom_parameters": { 
-        "ライン": "lineid",
-        "年齢": "99",
-        "氏名(ｶﾅ)": "ダミー",
-        "氏名(漢字)": "ダミー",
-        "ｽﾀｯﾌ番号": 1,
-        "登録日": "2025-09-29" }
-});
+!function() {
+    // ----------------------------------------------------
+    // URLパラメータの取得と支店別トークンの定義
+    // ----------------------------------------------------
+    const urlParams = new URLSearchParams(window.location.search);
+    const branch = urlParams.get('branch');
+    const phoneNumber = urlParams.get('utm_customid');
+
+    // 支店名と対応するトークンを定義
+    const branchTokens = {
+        'nagoya': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYW1wYWlnblVpZCI6ImIzZTFjNTgyLTZmYjAtNDgzNy1hMTE2LTRlMjhkODgxZWY3MiIsImlhdCI6MTc1ODY5MzI1Nn0.7ocR406IeYOVpT9HeWILRGxfNcXVXaE4AdV8qQA8ptQ",
+        'utsunomiya': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYW1wYWlnblVpZCI6ImViOTBjNmQ2LTJiNDMtNDE5Ni05Y2EyLTE1ZDgwNDVkNmYzMyIsImlhdCI6MTc1ODY5MzI5MX0.YLrHMZBWx_z_zllZWVk6SJ9XYwf5zR-3hTplO6AjXmA",
+        'osaka': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYW1wYWlnblVpZCI6ImM0NGMyODg4LWJmZDUtNGUzZC1iM2MwLTg1MWIyNmM5YThmMiIsImlhdCI6MTc1ODY5MzMxOX0.-alHbDu3sA-g_wVYaAsL0DnhG5siRbVAg7AW_VPmcoY",
+        'hachioji': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYW1wYWlnblVpZCI6ImE3ZDQxY2Q2LWY3MzgtNGY4OC1hZWVkLTA4M2VjNDkzZWExYyIsImlhdCI6MTc1ODY5MzM0NH0.G2TDCXydcTpPI0GZxX49NPWgU861bpjc-Bzq019peaQ",
+        'omiya': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYW1wYWlnblVpZCI6IjAxYzM5OThmLWYzZmMtNGFhNC1iNWNkLTQwMWNjNDcyMTc5MiIsImlhdCI6MTc1ODY5MzM2OX0.yHob9kbbrquabrcGg9W4I4PM6_KDHoF_Siy3TZp3nYo",
+        'chiba': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYW1wYWlnblVpZCI6IjA1NjU2OTU3LWFjOTEtNDQ0Ny1hYWIwLTE1Yzk2MzgxZmQ3ZiIsImlhdCI6MTc1ODY5MzQwMn0.3MGeNI_zpr49XaCHFKQqFsH4j06G3QyuCY-Zymn4fC4",
+        'tokyo': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYW1wYWlnblVpZCI6ImI3YjA5ZWRkLWM4MjAtNGU3Ny1hMTJlLTI0MzQwZDMyZmExZSIsImlhdCI6MTc1ODY5MzQzNH0.YVJo46gcMiU7PojZxP60hmYAtovuLm7-jMfCfr8YVz8"
+    };
+
+    const token = branchTokens[branch];
+
+    // ----------------------------------------------------
+    // 支店に応じたタグ本体を動的に読み込み
+    // ----------------------------------------------------
+    if (token) {
+        // タグ本体の読み込み
+        const script = document.createElement("script");
+        script.src = "https://api.micovoice.com/api/v1/quick_calls/tag";
+        script.async = true; // または !0
+        script.type = "text/javascript";
+        document.head.appendChild(script);
+
+        // mvtag関数の定義
+        window.__MV_DATALAYER__ = window.__MV_DATALAYER__ || [];
+        window.mvtag = function(e, t) {
+            __MV_DATALAYER__.push({
+                eventType: e,
+                eventData: t,
+                token: token // 選択されたトークンをAPIに渡す
+            });
+        };
+    } else {
+        console.warn("クイックコール: 有効な branch パラメータが見つからなかったため、タグは読み込まれませんでした。");
+    }
+
+    // ----------------------------------------------------
+    // 電話番号パラメータが存在する場合、mvtagを発火
+    // ----------------------------------------------------
+    // phoneNumber が存在し、かつトークンが定義されている（タグが読み込まれた）場合に実行
+    if (phoneNumber && token) {
+        
+        // タグ本体の読み込み完了を待つための遅延（非同期処理のため）
+        setTimeout(() => {
+            if (window.mvtag) {
+                // mvtag関数を呼び出し、URLパラメータと固定値をマージして渡す
+                window.mvtag("quick_call", {
+                    "is_sandbox": false, // 本番稼働時は false
+                    "phone_number": phoneNumber, // URLパラメータの値
+                    "custom_parameters": {
+                        "ライン": "lineid",
+                        "年齢": "99",
+                        "氏名(ｶﾅ)": "ダミー",
+                        "氏名(漢字)": "ダミー",
+                        "ｽﾀｯﾌ番号": 1,
+                        "登録日": "2025-09-29"
+                    }
+                });
+            }
+        }, 1000); 
+    }
+}();
 </script>
 
 </body>
