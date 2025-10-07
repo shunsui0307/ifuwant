@@ -14,14 +14,14 @@
     // ----------------------------------------------------
     // ステップ1: URLパラメータの取得と定義
     // ----------------------------------------------------
-    const urlParams = new URLSearchParams(window.location.search);
-    const branch = urlParams.get('branch');
-    const phoneNumber = urlParams.get('utm_customid');
+    var urlParams = new URLSearchParams(window.location.search);
+    var branch = urlParams.get('branch');
+    var phoneNumber = urlParams.get('utm_customid');
 
     // ----------------------------------------------------
     // ステップ2: 支店ごとの設定を定義
     // ----------------------------------------------------
-    const branchSettings = {
+    var branchSettings = {
         'nagoya': {
             token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYW1wYWlnblVpZCI6ImIzZTFjNTgyLTZmYjAtNDgzNy1hMTE2LTRlMjhkODgxZWY3MiIsImlhdCI6MTc1ODY5MzI1Nn0.7ocR406IeYOVpT9HeWILRGxfNcXVXaE4AdV8qQA8ptQ",
             // 名古屋は4つのカスタムパラメータ
@@ -77,14 +77,14 @@
         },
     };
 
-    const setting = branchSettings[branch];
+    var setting = branchSettings[branch];
 
     // ----------------------------------------------------
     // ステップ3: タグ本体の読み込みと mvtag の定義
     // ----------------------------------------------------
     if (setting) {
         // タグ本体の読み込み
-        const script = document.createElement("script");
+        var script = document.createElement("script");
         script.src = "https://api.micovoice.com/api/v1/quick_calls/tag";
         script.async = true;
         script.type = "text/javascript";
@@ -93,7 +93,7 @@
         // mvtag関数の定義
         window.__MV_DATALAYER__ = window.__MV_DATALAYER__ || [];
         window.mvtag = function(e, t) {
-            __MV_DATALAYER__.push({
+            window.__MV_DATALAYER__.push({
                 eventType: e,
                 eventData: t,
                 token: setting.token // 選択された支店のトークンを使用
@@ -109,12 +109,11 @@
     if (phoneNumber && setting) {
         
         // タグ本体の読み込み完了を待つための遅延
-        setTimeout(() => {
+        setTimeout(function() {
             if (window.mvtag) {
                 // mvtag関数を呼び出し
                 window.mvtag("quick_call", {
                     "is_sandbox": false, // 本番稼働時は false
-                    "delay": 15,
                     "phone_number": phoneNumber, // URLパラメータの値
 
                     // 支店ごとに内容が異なるカスタムパラメータ
@@ -127,6 +126,3 @@
     }
 }();
 </script>
-
-</body>
-</html>
