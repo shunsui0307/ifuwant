@@ -9,18 +9,30 @@
     <h1>クイックコールHTMLタグ テスト</h1>
 
 
-<script>!function(){var e=document.createElement("script");e.src="https://api.micovoice.com/api/v1/quick_calls/tag",e.async=!0,e.type="text/javascript",document.head.appendChild(e),window.__MV_DATALAYER__=window.__MV_DATALAYER__||[],window.mvtag=function(e,t){__MV_DATALAYER__.push({eventType:e,eventData:t,token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYW1wYWlnblVpZCI6IjA1NjU2OTU3LWFjOTEtNDQ0Ny1hYWIwLTE1Yzk2MzgxZmQ3ZiIsImlhdCI6MTc1ODY5MzQwMn0.3MGeNI_zpr49XaCHFKQqFsH4j06G3QyuCY-Zymn4fC4"})}}();</script>
-
 <script>
-// URLパラメータから電話番号を取得
+// URLパラメータからBASE64エンコードされた電話番号を取得
 const urlParams = new URLSearchParams(window.location.search);
-const phoneNumber = urlParams.get('utm_customid');
+const encodedPhoneNumber = urlParams.get('utm_customid');
 
-// 電話番号パラメータが存在し、かつ空ではない場合に mvtag 関数を呼び出し
-if (phoneNumber) {
-  mvtag("quick_call", {
-    "phone_number": phoneNumber,
-    "delay": 15
-  });
+// エンコードされた電話番号パラメータが存在し、かつ空ではない場合の処理
+if (encodedPhoneNumber) {
+  try {
+    // BASE64文字列をデコード
+    // btoa/atobはブラウザ環境で利用可能です
+    const decodedPhoneNumber = atob(encodedPhoneNumber);
+
+    // 電話番号として有効そうな形式か、または必要な検証（例:数字とハイフンのみか）を
+    // ここで追加するとより安全です。今回はデコード後の文字列がそのまま電話番号として
+    // 利用できると仮定します。
+    
+    // mvtag 関数を呼び出し
+    mvtag("quick_call", {
+      "phone_number": decodedPhoneNumber,
+      "delay": 15
+    });
+  } catch (e) {
+    // BASE64デコードに失敗した場合（不正な文字列など）の処理
+    console.error("Failed to decode BASE64 string for phone number:", e);
+  }
 }
 </script>
