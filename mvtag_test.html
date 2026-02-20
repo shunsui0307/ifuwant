@@ -5,102 +5,28 @@
     <title>クイックコール GTMテスト</title>
 </head>
 <body>
+
+<script>!function(){var e=document.createElement("script");e.src="https://api.micovoice.com/api/v1/quick_calls/tag",e.async=!0,e.type="text/javascript",document.head.appendChild(e),window.__MV_DATALAYER__=window.__MV_DATALAYER__||[],window.mvtag=function(e,t){__MV_DATALAYER__.push({eventType:e,eventData:t,token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYW1wYWlnblVpZCI6ImVkY2Y1NDQ1LTFjYmUtNGVmNy04OTIzLWEyYThlMzBjYmEwMSIsImlhdCI6MTc2NTM1NTQ4NH0.J55kS9VBI-pthVLtKyZnbKjNHc2g6okPrqgb9SXOfIY"})}}();</script>
+    
 <script>
-!function() {
-    // ----------------------------------------------------
-    // ステップ1: URLパラメータの取得と定義
-    // ----------------------------------------------------
-    var urlParams = new URLSearchParams(window.location.search);
-    var branch = urlParams.get('branch');
-    var encodedPhoneNumber = urlParams.get('utm_customid'); // エンコードされた値を取得
-    var phoneNumber = null; // デコード後の電話番号を格納する変数
+// URLパラメータからBASE64エンコードされた電話番号を取得
+var urlParams = new URLSearchParams(window.location.search);
+var encodedPhoneNumber = urlParams.get('utm_customid');
 
-    // Base64デコード処理
-    if (encodedPhoneNumber) {
-        try {
-            // Base64文字列をデコード
-            phoneNumber = atob(encodedPhoneNumber);
-        } catch (e) {
-            console.error("クイックコール: 電話番号のBase64デコードに失敗しました。", e);
-            // デコード失敗時は phoneNumber は null のまま
-        }
-    }
-
-
-    // ----------------------------------------------------
-    // ステップ2: 支店ごとの設定を定義
-    // ----------------------------------------------------
-    var branchSettings = {
-        'nagoya': {
-            token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYW1wYWlnblVpZCI6ImIzZTFjNTgyLTZmYjAtNDgzNy1hMTE2LTRlMjhkODgxZWY3MiIsImlhdCI6MTc1ODY5MzI1Nn0.7ocR406IeYOVpT9HeWILRGxfNcXVXaE4AdV8qQA8ptQ",
-        },
-        'utsunomiya': {
-            token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYW1wYWlnblVpZCI6ImViOTBjNmQ2LTJiNDMtNDE5Ni05Y2EyLTE1ZDgwNDVkNmYzMyIsImlhdCI6MTc1ODY5MzI5MX0.YLrHMZBWx_z_zllZWVk6SJ9XYwf5zR-3hTplO6AjXmA",
-        },
-        'osaka': {
-            token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYW1wYWlnblVpZCI6ImM0NGMyODg4LWJmZDUtNGUzZC1iM2MwLTg1MWIyNmM5YThmMiIsImlhdCI6MTc1ODY5MzMxOX0.-alHbDu3sA-g_wVYaAsL0DnhG5siRbVAg7AW_VPmcoY",
-        },
-        'hachioji': {
-            token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYW1wYWlnblVpZCI6ImE3ZDQxY2Q2LWY3MzgtNGY4OC1hZWVkLTA4M2VjNDkzZWExYyIsImlhdCI6MTc1ODY5MzM0NH0.G2TDCXydcTpPI0GZxX49NPWgU861bpjc-Bzq019peaQ",
-        },
-        'omiya': {
-            token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYW1wYWlnblVpZCI6IjAxYzM5OThmLWYzZmMtNGFhNC1iNWNkLTQwMWNjNDcyMTc5MiIsImlhdCI6MTc1ODY5MzM2OX0.yHob9kbbrquabrcGg9W4I4PM6_KDHoF_Siy3TZp3nYo",
-        },
-        'chiba': {
-            token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYW1wYWlnblVpZCI6IjA1NjU2OTU3LWFjOTEtNDQ0Ny1hYWIwLTE1Yzk2MzgxZmQ3ZiIsImlhdCI6MTc1ODY5MzQwMn0.3MGeNI_zpr49XaCHFKQqFsH4j06G3QyuCY-Zymn4fC4",
-        },
-        'tokyo': {
-            token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYW1wYWlnblVpZCI6ImI3YjA5ZWRkLWM4MjAtNGU3Ny1hMTJlLTI0MzQwZDMyZmExZSIsImlhdCI6MTc1ODY5MzQzNH0.YVJo46gcMiU7PojZxP60hmYAtovuLm7-jMfCfr8YVz8",
-        },
-        'nigata': {
-            token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYW1wYWlnblVpZCI6ImVkY2Y1NDQ1LTFjYmUtNGVmNy04OTIzLWEyYThlMzBjYmEwMSIsImlhdCI6MTc2NTM1NTQ4NH0.J55kS9VBI-pthVLtKyZnbKjNHc2g6okPrqgb9SXOfIY",
-        },
-    };
-
-    var setting = branchSettings[branch];
-
-    // ----------------------------------------------------
-    // ステップ3: タグ本体の読み込みと mvtag の定義
-    // ----------------------------------------------------
-    if (setting) {
-        // タグ本体の読み込み
-        var script = document.createElement("script");
-        script.src = "https://api.micovoice.com/api/v1/quick_calls/tag";
-        script.async = true;
-        script.type = "text/javascript";
-        document.head.appendChild(script);
-
-        // mvtag関数の定義
-        window.__MV_DATALAYER__ = window.__MV_DATALAYER__ || [];
-        window.mvtag = function(e, t) {
-            window.__MV_DATALAYER__.push({
-                eventType: e,
-                eventData: t,
-                token: setting.token // 選択された支店のトークンを使用
-            });
-        };
-    } else {
-        console.warn("クイックコール: 有効な branch パラメータが見つからなかったため、タグは読み込まれませんでした。");
-    }
-
-    // ----------------------------------------------------
-    // ステップ4: 電話番号パラメータが存在し、設定が有効な場合、mvtagを発火
-    // ----------------------------------------------------
-    if (phoneNumber && setting) {
-        
-        // タグ本体の読み込み完了を待つための遅延
-        setTimeout(function() {
-            if (window.mvtag) {
-                // mvtag関数を呼び出し
-                window.mvtag("quick_call", {
-                    "is_sandbox": false, // 本番稼働時は false
-                    "delay": 15, // 
-                    "phone_number": phoneNumber,
-                });
-            } else {
-                console.error("クイックコール: mvtag関数が定義されていません。");
-            }
-        }, 1000); 
-    }
-}();
+// エンコードされた電話番号パラメータが存在し、かつ空ではない場合の処理
+if (encodedPhoneNumber) {
+  try {
+    // BASE64文字列をデコード
+    var decodedPhoneNumber = atob(encodedPhoneNumber);
+    
+    // mvtag 関数を呼び出し
+    mvtag("quick_call", {
+      "phone_number": decodedPhoneNumber,
+      "delay": 15 // サイト遷移してから何秒後にクイックコールをかけるか秒数を指定
+    });
+  } catch (e) {
+    // BASE64デコードに失敗した場合（不正な文字列など）の処理
+    console.error("Failed to decode BASE64 string for phone number:", e);
+  }
+}
 </script>
