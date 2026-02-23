@@ -10,39 +10,18 @@
 
 <script>
 (function() {
-  /**
-   * 日本語対応のBase64デコード関数
-   * atobだけでは日本語が文字化けするため、decodeURIComponentでUTF-8に変換します
-   */
-  function safeBase64Decode(str) {
-    try {
-      if (!str) return null;
-      // 1. atobでバイナリ文字列に変換
-      // 2. 文字列内の各バイトを16進数エスケープに変換 (%xx)
-      // 3. decodeURIComponent で日本語として復元
-      return decodeURIComponent(escape(atob(str)));
-    } catch (e) {
-      console.error("Base64 decode error:", e);
-      return null;
-    }
-  }
+  var p = new URLSearchParams(window.location.search);
+  var d = function(s) { try { return s ? decodeURIComponent(escape(atob(s))) : ""; } catch(e) { return ""; } };
+  var tel = p.get('utm_customid'), name = p.get('name');
 
-  // URLパラメータを取得
-  var urlParams = new URLSearchParams(window.location.search);
-  var encodedPhone = urlParams.get('utm_customid');
-  var encodedName = urlParams.get('name');
-
-  // 電話番号または名前のどちらかが存在する場合に実行
-  if (encodedPhone || encodedName) {
-    var decodedPhone = encodedPhone ? atob(encodedPhone) : ""; // 電話番号はASCII想定なのでatobのみでも可
-    var decodedName = safeBase64Decode(encodedName) || "";
-
-    // mvtag 関数を呼び出し
+  if (tel || name) {
     mvtag("quick_call", {
-      "phone_number": decodedPhone,
-      "full_name": decodedName, // デコードした顧客名をセット
+      "phone_number": tel ? atob(tel) : "",
+      "full_name": d(name),
       "delay": 15
     });
   }
 })();
 </script>
+
+
